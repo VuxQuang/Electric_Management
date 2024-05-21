@@ -148,16 +148,18 @@ class KhachhangController extends Controller
     }
 
 
-    public function updatett(Request $request, $mahd)
+    public function updatett(Request $request)
     {
-        $all_hd = DB::table('hoadon')->where('mahd', $mahd)->get();
-        // dd($all_hd);
-        $tinhtrang = 0;
-        DB::table('hoadon')->where('mahd', $mahd)->update([
-            'tinhtrang' => $request->$tinhtrang,
-        ]);
-        $all_kh_no = DB::table('khachhang')->join('dienke', 'khachhang.makh', '=', 'dienke.makh')
-            ->join('hoadon', 'hoadon.madk', '=', 'dienke.madk')->where('tinhtrang', 1)->get();
+        DB::table('hoadon')
+            ->where('mahd', $request->mahd)
+            ->update([
+                'tinhtrang' => 0,
+            ]);
+        $all_kh_no = DB::table('khachhang')
+            ->join('dienke', 'khachhang.makh', '=', 'dienke.makh')
+            ->join('hoadon', 'hoadon.madk', '=', 'dienke.madk')
+            ->where('tinhtrang', 1)->get();
+
         return view('mycomponent.notien', ['kh_notien' => $all_kh_no]);
     }
 

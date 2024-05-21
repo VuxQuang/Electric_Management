@@ -9,11 +9,11 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="w-6/7" style="margin: 20px auto;padding:20px">
                     <?php
-                        $message = Session::get('message');
-                        if($message){
-                            echo '<span class="text-alert">'.$message.'</span>';
-                            Session::put('message',null);
-                        }
+                    $message = Session::get('message');
+                    if ($message) {
+                        echo '<span class="text-alert">' . $message . '</span>';
+                        Session::put('message', null);
+                    }
                     ?>
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -27,24 +27,28 @@
                                 <th>Lựa chọn</th>
                             </tr>
                         </thead>
-        
+
                         <tbody>
-                            @foreach($kh_notien as $no )
-                            <tr>
-                                <td>{{$no->tenkh}}</td>
-                                <td>{{$no->madk}}</td>
-                                <td>{{$no->mahd}}</td>
-                                <td>{{$no->ky}}</td>
-                                <td>{{$no->tongthanhtien}}</td>
-                                <td>@if($no->tinhtrang==0)
-                                    Đã thanh toán
-                                @else
-                                    Chưa thanh toán
-                                @endif
-                                </td>
-                                <td><a href="{{route('updatett', $no->mahd)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"> Cập nhật</i></a></td>
-                            </tr>
-                        @endforeach
+                            @foreach ($kh_notien as $no)
+                                <tr>
+                                    <td>{{ $no->tenkh }}</td>
+                                    <td>{{ $no->madk }}</td>
+                                    <td>{{ $no->mahd }}</td>
+                                    <td>{{ $no->ky }}</td>
+                                    <td>{{ $no->tongthanhtien }}</td>
+                                    <td>
+                                        @if ($no->tinhtrang == 0)
+                                            Đã thanh toán
+                                        @else
+                                            Chưa thanh toán
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('updatett', ['mahd' => $no->mahd]) }}"
+                                            class="btn btn-primary"><i class="fas fa-pencil-alt">Đã thanh toán</i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

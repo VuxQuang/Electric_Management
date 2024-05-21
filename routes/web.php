@@ -45,7 +45,7 @@ Route::middleware([
     Route::prefix('no')->group(function () {
         Route::get('/',[KhachhangController::class,'all_kh_no'])->name('no');
         // Route::get('updatett/{mahd}',[KhachhangController::class,'edit_tt'])->name('update_tt');
-        Route::get('/updatett/{mahd}',[KhachhangController::class,'updatett'])->name('updatett');
+        Route::get('/updatett',[KhachhangController::class,'updatett'])->name('updatett');
     });
 
     // Resource Controllers
