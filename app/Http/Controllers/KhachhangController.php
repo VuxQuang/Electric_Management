@@ -33,6 +33,7 @@ class KhachhangController extends Controller
                     'makh' => 'required',
                     'tenkh' => 'required',
                     'diachi' => 'required',
+                    'email' => 'required',
                     'cmnd' => 'required|min:12|max:12'
                 ],
                 [
@@ -40,6 +41,7 @@ class KhachhangController extends Controller
                     'sdt.min' => 'Số điện thoại ít nhất 10 chữ!!!',
                     'sdt.max' => 'Số điện thoại tối đa 11 chữ',
                     'makh.required' => 'Mã KH  phải nhập',
+                    'email.required' => 'Email  phải nhập',
                     'tenkh.required' => 'Tên KH phải nhập',
                     'diachi.required' => 'Địa chỉ  phải nhập',
                     'cmnd.required' => 'CMND phải nhập',
@@ -66,6 +68,8 @@ class KhachhangController extends Controller
                     'diachi' => $request->diachi,
                     'dt' => $request->sdt,
                     'cmnd' => $request->cmnd,
+                    'email' => $request->email,
+                    'create_at' => now()->format('Y-m-d H:i:s'),
                     'create_by' => Auth::user()?->name,
                 ]);
                 return back()->with('message', 'Thêm khách hàng thành công!');
@@ -110,6 +114,7 @@ class KhachhangController extends Controller
                     'sdt' => 'required|min:10|max:11',
                     'tenkh' => 'required',
                     'diachi' => 'required',
+                    'email' => 'required',
                     'cmnd' => 'required|min:12|max:12'
                 ],
                 [
@@ -117,6 +122,7 @@ class KhachhangController extends Controller
                     'sdt.min' => 'Số điện thoại ít nhất 10 chữ!!!',
                     'sdt.max' => 'Số điện thoại tối đa 11 chữ',
                     'tenkh.required' => 'Tên KH phải nhập',
+                    'email.required' => 'Email phải nhập',
                     'diachi.required' => 'Địa chỉ  phải nhập',
                     'cmnd.required' => 'CMND phải nhập',
                     'cmnd.min' => 'CMND phải là 12 số',
@@ -136,7 +142,8 @@ class KhachhangController extends Controller
                 'diachi' => $request->diachi,
                 'dt' => $request->sdt,
                 'cmnd' => $request->cmnd,
-                'update_at' => Carbon::now(),
+                'email' => $request->email,
+                'update_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'update_by' => Auth::user()?->name,
             ]);
             return $this->all_kh();

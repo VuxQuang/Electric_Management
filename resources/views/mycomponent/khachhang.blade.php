@@ -36,6 +36,10 @@
                                 <input id="cmnd" class="form-control" type="tel" name="cmnd">
                             </div>
                             <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="email" class="form-control" type="tel" name="email">
+                            </div>
+                            <div class="form-group">
                                 <label for="diachi">Địa chỉ</label>
                                 <input id="diachi" class="form-control" type="text" name="diachi">
                             </div>
@@ -51,10 +55,9 @@
                                 <th>Địa chỉ</th>
                                 <th>Số điện thoại</th>
                                 <th>CMND</th>
+                                <th>Email</th>
                                 <th>Ngày tạo</th>
-                                <th>Người tạo</th>
                                 <th>Ngày sửa</th>
-                                <th>Người sửa</th>
                                 <th>Lựa chọn</th>
                             </tr>
                         </thead>
@@ -66,14 +69,13 @@
                                     <td>{{$kh->diachi}}</td>
                                     <td>{{$kh->dt}}</td>
                                     <td>{{$kh->cmnd}}</td>
-                                    <td>{{$kh->create_at}}</td>
-                                    <td>{{$kh->create_by}}</td>
+                                    <td>{{$kh->email}}</td>
+                                    <td>{{$kh->created_at}}</td>
                                     <td>{{$kh->update_at}}</td>
-                                    <td>{{$kh->update_by}}</td>
                                     <td>
                                         <a href="{{route('update', $kh->makh)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"> Sửa</i></a>
                                         <a href="{{url('khachhang/delete/'.$kh->makh)}}" class="btn btn-danger"><i class="fas fa-trash-alt"> Xóa</i></a>
-                                    </td>   
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

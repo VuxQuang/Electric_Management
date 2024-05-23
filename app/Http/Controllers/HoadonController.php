@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use DB;
-use PDF;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class HoadonController extends Controller
 {
@@ -17,6 +20,7 @@ class HoadonController extends Controller
         $all_hoadon = DB::table('hoadon')->join('dienke', 'hoadon.madk', '=', 'dienke.madk')
             ->join('khachhang', 'dienke.makh', '=', 'khachhang.makh')->get();
         $all_kh = DB::table('khachhang')->join('dienke', 'dienke.makh', '=', 'khachhang.makh')->get();
+
         return view('mycomponent.hoadon', ['hoadon' => $all_hoadon, 'all_kh' => $all_kh]);
     }
     public function all_dk()
@@ -157,7 +161,7 @@ class HoadonController extends Controller
         } else {
             $sotien = 100 * $bac1 + 50 * $bac2 + 50 * $bac3 + 100 * $bac4 + 100 * $bac5 + ($sokw - 400) * $bac6;
         }
-        DB::table('hoadon')->insert([
+        $data['order'] = [
             'mahd' => "HD" . \substr(Carbon::now()->timestamp, 0, 8),
             'madk' => $req->madk,
             'ky' => Carbon::now()->month,
@@ -170,7 +174,18 @@ class HoadonController extends Controller
             'tinhtrang' => 1,
             'create_at' => Carbon::now(),
             'create_by' => Auth::user()?->name,
-        ]);
+        ];
+        DB::table('hoadon')->insert($data['order']);
+
+        //
+        $data['customer'] = DB::table('khachhang')
+            ->join('dienke', 'khachhang.makh', '=', 'dienke.makh')
+            ->selectRaw('khachhang.*')
+            ->where('dienke.madk', $req->madk)
+            ->first();
+        Mail::to($data['customer']->email ?? '')->send(
+            new OrderMail($data)
+        );
 
         return redirect()->route('hoadon');
     }

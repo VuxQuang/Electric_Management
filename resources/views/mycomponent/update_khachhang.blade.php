@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="tenkh">Tên khách hàng</label>
                                 <input id="tenkh" class="form-control" type="text" name="tenkh" value="{{old('tenkh', $detail_kh->tenkh ?? '')}}">
-                                
+
                             </div>
                             <div class="form-group">
                                 <label for="sdt">Số điện thoại</label>
@@ -31,6 +31,10 @@
                             <div class="form-group">
                                 <label for="cmnd">Chứng minh nhân dân</label>
                                 <input id="cmnd" class="form-control" type="tel" name="cmnd" value="{{old('cmnd', $detail_kh->cmnd ?? '')}}">
+                            </div>
+                             <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="email" value="{{old('email', $detail_kh->email ?? '')}}" class="form-control" type="tel" name="email">
                             </div>
                             <div class="form-group">
                                 <label for="diachi">Địa chỉ</label>
@@ -49,7 +53,6 @@
                                 <th>Số điện thoại</th>
                                 <th>CMND</th>
                                 <th>Ngày tạo</th>
-                                <th>Người tạo</th>
                                 <th>Ngày cập nhật</th>
                                 <th>Người cập nhật</th>
                                 <th>Lựa chọn</th>
@@ -64,7 +67,6 @@
                                     <td>{{$kh->dt}}</td>
                                     <td>{{$kh->cmnd}}</td>
                                     <td>{{$kh->create_at}}</td>
-                                    <td>{{$kh->create_by}}</td>
                                     @if($kh->update_at ==null)
                                     <td>{{$kh->create_at}}</td>
                                     @else
@@ -78,7 +80,7 @@
                                     <td>
                                         <a href="{{route('update',$kh->makh)}}" class="btn btn-primary"><i class="fas fa-pencil-alt"> Sửa</i></a>
                                         <a href="{{url('khachhang/delete/'.$kh->makh)}}" class="btn btn-danger"><i class="fas fa-trash-alt"> Xóa</i></a>
-                                    </td>   
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
